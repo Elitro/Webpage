@@ -16,6 +16,8 @@ In this guide i will be explaining both my thought process as well as some of we
 2. Plugins
     1. Sass
     2. Html (index)
+    3. Dev Server
+    4. ESLint
 
 
 ### Setting up Webpack
@@ -89,7 +91,7 @@ Webpack is very flexible when it comes to extra functionalities, and these come 
 There are many ways you can bundle css, i decided to both use a preprocessor and bundle it in a separate file. In order to do this, you will need to run the following line:
 
 ```
-npm install css-loader node-sass sass-loader extract-text-webpack-plugin --save-dev
+npm install css-loader node-sass sass-loader extract-text-webpack-plugin --save-dev --save-dev
 ```
 
 We need `css-loader` to process CSS files. `sass-loader` and its dependency ` node-sass` allows us to compile .scss files to css. Lastly, `extract-text-webpack-plugin` extracts text from a bundle into a file, allowing us to have a file for the bundled js and another for the bundled css.
@@ -151,11 +153,8 @@ Our bundles will need to be included in the index.html file:
 
 But having to manually include the bundles is a boring and error prone procedure. In order to keep our build process scalable and automatic i decided to use the following package:
 
---TODO--
-Change this part, wrong plugin
-
 ```
-npm install extract-text-webpack-plugin --save-dev
+npm install html-webpack-plugin --save-dev
 ```
 This plugin creates and inserts the bundle files into the index.html file. It also supports templates, what this means is that you can have an index.html file created by you with all the metadata you want to add and the plugin will insert the scripts after running webpack compilation.
 
@@ -175,6 +174,87 @@ module: {
 
 ```
 
+#### Web Server
+
+Another very useful feature is having webpack automatically compile and show it to you immediately! this is called `live reloading` and we can achieve this with the dev-server plugin:
+
+```
+npm install webpack-dev-server --save-dev
+```
+
+In the webpack.config.js file you can just add the following line:
+
+```javascript
+...
+module.exports = {
+  ...
+  plugins: [
+    ...
+    devServer: {
+      contentBase: path.resolve(__dirname, './dist')
+    }
+  ]
+}
+```
+And in the package.json file you can add the command:
+```json
+...
+"scripts": {
+  ...
+  "serve": "node_modules/.bin/webpack-dev-server"
+}
+```
+If you run `npm run serve` webpack will host a server instance in the address `http://localhost:8080/` and if you change any file it will automatically recompile it and reflect the changes in the browser.
+
+### ESLint
+
+Linting is a powerful tool to avoid errors or simply to maintain a similar coding style between multiple developers in a project. 
+
+TODO: A more compreensive explanation on linting
+
+ESLint is a very popular plugin, which includes big name companies coding styles such as Google or AirBnB.
+
+You will first need to install eslint:
+```
+npm install eslint --save-dev
+```
+Then you can install the loader for webpack:
+```
+npm install --save-dev eslint-loader
+```
+This will allow webpack to include linting when compiling your code, with immediate feedback in the console whenever something does not comply to the linting rules.
+
+Initialize the linting file:
+```
+$ ./node_modules/.bin/eslint --init
+```
+
+Basic setup to get you started:
+```javascript
+module.exports = {
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    rules: {
+        "no-console": 0
+    }
+};
+```
+
+You can check the documentation [here](http://eslint.org/docs/user-guide/configuring "ESLint Configuration")
+
+
+
+
+// TODO eslint in the ide
+
 ## Sources
 
+https://www.npmjs.com/package/eslint-webpack
+https://github.com/MoOx/eslint-loader
 https://webpack.github.io/docs/tutorials/getting-started/

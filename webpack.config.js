@@ -1,6 +1,6 @@
 var path = require('path');
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -14,9 +14,9 @@ module.exports = {
   },
   module: {
     rules: [
-      
+
       // your other rules for JavaScript transpiling go in here
-      
+
       { // regular css files
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -27,8 +27,16 @@ module.exports = {
       { // sass / scss loader for webpack
         test: /\.(sass|scss)$/,
         loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
-      }
-    ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          // eslint options (if necessary)
+        }
+      },
+    ],
   },
   plugins: [
     new ExtractTextPlugin({
@@ -41,8 +49,8 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: path.resolve(__dirname, './dist'),  // New
-  },
+    contentBase: path.resolve(__dirname, './dist')
+  }
 };
 
 // module.exports = {
