@@ -13,6 +13,10 @@ In this guide i will be explaining both my thought process as well as some of we
 1. Setting up Webpack 
     1. Basic Configuration
     2. Node Scripts
+2. Plugins
+    1. Sass
+    2. Html (index)
+
 
 ### Setting up Webpack
 
@@ -72,4 +76,105 @@ Now that i have webpack running, i decided to add some node scripts to automate 
     "watch": "webpack --watch"
   }
 ```
-The first one we already know
+We can see the addition of a new command `--watch`. This command automatically recompiles our build everytime it detects the files has been changed.
+
+### Plugins
+
+After having the basic build process set up and working i started adding optimization steps to add more functionalities to the project.
+
+Webpack is very flexible when it comes to extra functionalities, and these come in the form of plugins. These allow you to automatically com
+
+#### Sass
+
+There are many ways you can bundle css, i decided to both use a preprocessor and bundle it in a separate file. In order to do this, you will need to run the following line:
+
+```
+npm install css-loader node-sass sass-loader extract-text-webpack-plugin --save-dev
+```
+
+We need `css-loader` to process CSS files. `sass-loader` and its dependency ` node-sass` allows us to compile .scss files to css. Lastly, `extract-text-webpack-plugin` extracts text from a bundle into a file, allowing us to have a file for the bundled js and another for the bundled css.
+
+In the `webpack.config.js` file:
+
+```javascript
+...
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+...
+module.exports = {
+  ...
+  module: {
+    rules: [      
+      { // rule for standard css files
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          loader: 'css-loader',
+          options: { importLoaders: 1 }
+        }),
+      },
+      { // loader used to compile sass files
+        test: /\.(sass|scss)$/,
+        loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+      }
+    ],
+    plugins: [
+      new ExtractTextPlugin({
+        filename: '[name].bundle.css',
+        allChunks: true,
+      })
+    ]
+  }
+  ...
+}
+```
+
+#### Html (index)
+
+Today we might be using Sass, but tomorrow, who knows?</br>
+Our bundles will need to be included in the index.html file:
+```HTML
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    ...
+
+    <link href="app.bundle.css" rel="stylesheet">
+</head>
+
+<body>
+    <script type="text/javascript" src="app.bundle.js"></script>
+</body>
+
+</html>
+```
+
+But having to manually include the bundles is a boring and error prone procedure. In order to keep our build process scalable and automatic i decided to use the following package:
+
+--TODO--
+Change this part, wrong plugin
+
+```
+npm install extract-text-webpack-plugin --save-dev
+```
+This plugin creates and inserts the bundle files into the index.html file. It also supports templates, what this means is that you can have an index.html file created by you with all the metadata you want to add and the plugin will insert the scripts after running webpack compilation.
+
+In the webpack.config.js
+
+```javascript
+...
+module: {
+  ...
+  plugins: [
+    ...
+    new HtmlWebpackPlugin({
+      template: 'index.html'
+    })
+  ]
+}
+
+```
+
+## Sources
+
+https://webpack.github.io/docs/tutorials/getting-started/
