@@ -208,11 +208,15 @@ If you run `npm run serve` webpack will host a server instance in the address `h
 
 ### ESLint
 
-Linting is a powerful tool to avoid errors or simply to maintain a similar coding style between multiple developers in a project. 
+Linting derives from `Lint`, a software originally written for the C language which flagged suspicious behaviors by performing `static analysis`. Basically it will look at the code and point out obvious errors or improvements which you can perform without even needing to run the code. 
 
-TODO: A more compreensive explanation on linting
+Most projects also use some sort of linting, therefore learning to use one is highly beneficial. I passively used the one angular-cli provides out of the box, but i really started looking at it more carefully after having to follow a lint config for a job interview assignment.
 
-ESLint is a very popular plugin, which includes big name companies coding styles such as Google or AirBnB.
+Another great benefit is helping you learn the language. For example after my linting warned me over and over to use `let` instead of `var` and even `const` in some situations, it made me research on these declaration which in turn led me to understand them and make my code more safe and optimized.
+
+Lastly, because big projects are prone to become confusing due to each developer's own coding style, linting helps the project maintain a consistent style throughout. One example would be a rule to enforce component selectors prefix.
+
+One of the most popular linting plugins is ESLint, it includes big name companies coding styles, such as Google or AirBnB.
 
 You will first need to install eslint:
 ```
@@ -228,8 +232,9 @@ Initialize the linting file:
 ```
 $ ./node_modules/.bin/eslint --init
 ```
+This file includes your linting rules, if some rules are inconvenient for you, feel free to turn them off.
 
-Basic setup to get you started:
+Here is a basic setup to get you started:
 ```javascript
 module.exports = {
     "extends": "eslint:recommended",
@@ -248,8 +253,7 @@ module.exports = {
 
 You can check the documentation [here](http://eslint.org/docs/user-guide/configuring "ESLint Configuration")
 
-
-
+However, you will want to have linting in the IDE and not just when you compile your code, this will allow you to have instant feedback and improve your work greatly.
 
 // TODO eslint in the ide
 
