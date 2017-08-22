@@ -17,8 +17,8 @@ In this guide i will be explaining both my thought process as well as some of we
     1. Sass
     2. Html (index)
     3. Dev Server
-    4. ESLint
-
+3. Code Helpers
+    1. ESLint
 
 ### Setting up Webpack
 
@@ -206,7 +206,11 @@ And in the package.json file you can add the command:
 ```
 If you run `npm run serve` webpack will host a server instance in the address `http://localhost:8080/` and if you change any file it will automatically recompile it and reflect the changes in the browser.
 
-### ESLint
+### Code Helpers
+
+TODO: Things that improve our workflow
+
+#### ESLint
 
 Linting derives from `Lint`, a software originally written for the C language which flagged suspicious behaviors by performing `static analysis`. Basically it will look at the code and point out obvious errors or improvements which you can perform without even needing to run the code. 
 
@@ -256,6 +260,8 @@ You can check the documentation [here](http://eslint.org/docs/user-guide/configu
 However, you will want to have linting in the IDE and not just when you compile your code, this will allow you to have instant feedback and improve your work greatly.
 
 // TODO eslint in the ide
+
+#### Normalize.css
 
 ## Sources
 
