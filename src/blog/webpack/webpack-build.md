@@ -19,6 +19,7 @@ In this guide i will be explaining both my thought process as well as some of we
     3. Dev Server
 3. Code Helpers
     1. ESLint
+    2. Babel
 
 ### Setting up Webpack
 
@@ -259,9 +260,45 @@ You can check the documentation [here](http://eslint.org/docs/user-guide/configu
 
 However, you will want to have linting in the IDE and not just when you compile your code, this will allow you to have instant feedback and improve your work greatly.
 
-// TODO eslint in the ide
+For Visual Studio (VS) Code, simply add the extension `ESLint`
+
+#### Babel
+
+We will need to install the following packages:
+
+`npm install --save-dev babel-loader babel-core babel-preset-env webpack`
+
+Where `babel-loader` allows webpack to run babel. `babel-core` adds the babel functionalities and `babel-preset-env` is used in association with a babel config file to  [cenas](https://babeljs.io/docs/plugins/preset-env/) 
+
+In `Webpack.config.js` before any other rules add:
+```javascript
+module {
+    rules: [ // Transpiling rules come first
+      { 
+        test: /\.js$/, 
+        exclude: /node_modules/, 
+        loader: "babel-loader" 
+      }
+      ...
+    ]
+```
+This will ensure  you will not have undefined errors from transpiled code.
+
+#### SourceMaps
+
+When minifying and/or uglifying the 
+
+```javascript
+module.exports = {
+  ...
+  devtool: 'source-map'
+}
+```
+
+
 
 #### Normalize.css
+
 
 ## Sources
 

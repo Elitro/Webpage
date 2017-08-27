@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, './src'),
+  devtool: 'source-map',
   entry: {
     app: ['./main.js', './styles.scss']
   },
@@ -14,14 +15,16 @@ module.exports = {
   },
   module: {
     rules: [
-
-      // your other rules for JavaScript transpiling go in here
-
+      { 
+        test: /\.js$/, 
+        exclude: /node_modules/, 
+        loader: "babel-loader" 
+      },
       { // regular css files
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           loader: 'css-loader',
-          options: { importLoaders: 1 }
+          options: { importLoaders: 1 },
         }),
       },
       { // sass / scss loader for webpack
@@ -35,7 +38,7 @@ module.exports = {
         options: {
           // eslint options (if necessary)
         }
-      },
+      }           
     ],
   },
   plugins: [
@@ -52,20 +55,3 @@ module.exports = {
     contentBase: path.resolve(__dirname, './dist')
   }
 };
-
-// module.exports = {
-//   context: path.resolve(__dirname, './src'),
-//   entry: {
-//     app: ['./main.js']
-//   },
-//   output: {
-//     path: path.resolve(__dirname, './dist'),
-//     filename: '[name].bundle.js',
-//   },
-//   module: {
-//     rules: [
-//     ]
-//   },
-//   plugins: [
-//   ]
-// };
