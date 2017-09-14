@@ -22,10 +22,12 @@ const HeaderModule = (function() {
         }
     ];
 
-    templateDOM.getElementById('main-nav').appendChild(createMenu(options));
+    const navMenu = templateDOM.getElementById('nav-menu');
+    navMenu.parentNode.replaceChild(createMenu(options), navMenu);
 
     function createMenu(options) {
         const menu = document.createElement('ul');
+        // const menu = document.getElementById('nav-menu');
 
         options.map((elem) => {
             const li = templateDOM.createElement('li');
