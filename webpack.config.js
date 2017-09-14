@@ -3,6 +3,12 @@ var path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const extractSass = new ExtractTextPlugin({
+  filename: '[name].[contenthash].css',
+  allChunks: true
+  // disable: process.env.NODE_ENV === "development"
+});
+
 module.exports = {
   context: path.resolve(__dirname, './src'),
   devtool: 'source-map',
@@ -11,25 +17,38 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
-      { 
-        test: /\.js$/, 
-        exclude: /node_modules/, 
-        loader: "babel-loader" 
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader'
+        }
       },
-      { // regular css files
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          loader: 'css-loader',
-          options: { importLoaders: 1 },
-        }),
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader"
       },
-      { // sass / scss loader for webpack
-        test: /\.(sass|scss)$/,
-        loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+      {
+        test: /\.s?css$/,
+        exclude: /node_modules/,
+        use: extractSass.extract({
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "sass-loader"
+          }],
+          // use style-loader in development
+          fallback: "style-loader"
+        })
+        // test: /\.s?css$/,
+        // use: extractSass.extract({
+        //     fallback: 'style-loader',
+        //     use: ['css-loader', 'sass-loader']
+        // })
       },
       {
         test: /\.js$/,
@@ -38,15 +57,11 @@ module.exports = {
         options: {
           // eslint options (if necessary)
         }
-      }           
-    ],
+      }
+    ]
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: '[name].bundle.css',
-      allChunks: true,
-    }),
-    // new webpack.optimize.UglifyJsPlugin()
+    extractSass,
     new HtmlWebpackPlugin({
       template: 'index.html'
     })

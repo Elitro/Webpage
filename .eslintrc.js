@@ -2,7 +2,8 @@ module.exports = {
     "extends": "eslint:recommended",
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "node": true
     },
     "parserOptions": {
         "sourceType": "module"
@@ -11,5 +12,5 @@ module.exports = {
         // "linebreak-style": 0,
         "no-console": 0,
         "no-debugger": 0
-    }
+    }    
 };

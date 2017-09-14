@@ -1,6 +1,8 @@
-import header from './components/header/header.js';
+'use strict';
+import HeaderModule from './components/header/header.js';
+// require('normalize.css');
 
 console.log('main.js');
-debugger;
 
-header();
+// debugger;
+document.getElementById('header').appendChild(HeaderModule.template); 

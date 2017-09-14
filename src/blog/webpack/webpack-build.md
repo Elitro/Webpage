@@ -16,7 +16,8 @@ In this guide i will be explaining both my thought process as well as some of we
 2. Plugins
     1. Sass
     2. Html (index)
-    3. Dev Server
+    3. Html Loader
+    4. Dev Server
 3. Code Helpers
     1. ESLint
     2. Babel
@@ -81,6 +82,8 @@ Now that i have webpack running, i decided to add some node scripts to automate 
 ```
 We can see the addition of a new command `--watch`. This command automatically recompiles our build everytime it detects the files has been changed.
 
+In order to run these commands just type `npm run <command>`, this would translate into `npm run build` if we want to build our project. 
+
 ### Plugins
 
 After having the basic build process set up and working i started adding optimization steps to add more functionalities to the project.
@@ -130,6 +133,8 @@ module.exports = {
 }
 ```
 
+Another very important step is to include the sass file for each component so they get imported into the resulting css file. Say i want the create the header component, in the header.js you insert `require('./header.scss')`.
+
 #### Html (index)
 
 Today we might be using Sass, but tomorrow, who knows?</br>
@@ -173,6 +178,37 @@ module: {
   ]
 }
 
+```
+
+#### HTML Loader
+
+What if we have multiple Html files?
+
+`npm install html-loader --save-dev`
+
+in the rules section
+
+```javascript
+module.exports = {
+  ...
+  module: {
+    rules: [
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader'
+        }
+      },
+      ....
+    ]
+  }
+}
+```
+
+This allows you to import your html file as a string to a variable.
+
+```javascript
+  const template = require('./header.html');
 ```
 
 #### Web Server
@@ -286,7 +322,11 @@ This will ensure  you will not have undefined errors from transpiled code.
 
 #### SourceMaps
 
-When minifying and/or uglifying the 
+While minifying and/or uglifying the source code brings massive performance advantages, it becomes impossible for developers to debug mangled code.
+
+Fortunately there are source maps, these map the transformed code to the original source. Meaning that when we inspect the source we can see it in a readable format, making debugging very natural.
+
+To activate this feature we just add the following line to webpack:
 
 ```javascript
 module.exports = {
@@ -295,10 +335,30 @@ module.exports = {
 }
 ```
 
-
-
 #### Normalize.css
 
+Some Html components have baseline css properties, for example, H1 has bolder and bigger text than H2. However some elements have incosistent styling between the different browsers, this library will provide that consistency.
+
+However, keep in mind this is `not a css reset`, it does not remove the baseline styles from the html elements.
+
+We can installing it by running the install command:
+
+```
+npm install --save normalize.css
+```
+
+And to use it, we just need to require it (i'm doing it on my main.js):
+
+`require('normalize.css')`
+
+If ESLint complains about require, just add this section in `.eslintrc.js`
+
+```javascript
+"env": {
+  ...
+  "node": true
+}
+```
 
 ## Sources
 
