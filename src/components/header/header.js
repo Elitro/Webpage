@@ -1,4 +1,5 @@
 require('./header.scss');
+import ContentModule from '../content/content';
 
 const HeaderModule = (function() {
     
@@ -10,15 +11,11 @@ const HeaderModule = (function() {
     const options  = [
         {
             label: 'Home',
-            href: ''
+            href: '1'
         },
-        // {
-        //     label: 'Second',
-        //     href: ''
-        // },
         {
             label: 'Blog',
-            href: ''
+            href: '2'
         }
     ];
 
@@ -26,17 +23,24 @@ const HeaderModule = (function() {
     navMenu.parentNode.replaceChild(createMenu(options), navMenu);
 
     function createMenu(options) {
-        const menu = document.createElement('ul');
-        // const menu = document.getElementById('nav-menu');
+        const menu = templateDOM.getElementById('nav-menu');
 
         options.map((elem) => {
             const li = templateDOM.createElement('li');
+            li.addEventListener('click', (event) => {menuNavigate(event, elem.href), true});
             // li.setAttribute('href', elem.href);
             li.appendChild(document.createTextNode(elem.label));
+            li.setAttribute('class', 'menu-button');
             menu.appendChild(li);
         });
 
         return menu;
+    }
+
+    function menuNavigate(event, href) {
+        event.stopPropagation();
+        // console.log(`header ${href}`);
+        ContentModule.updateContent(href);
     }
 
     return {
@@ -44,5 +48,5 @@ const HeaderModule = (function() {
     }
 
 }());
-// export default greet;
+
 export default HeaderModule;

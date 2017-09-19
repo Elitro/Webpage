@@ -1,10 +1,18 @@
+$ul-padding: 20px;
+
 nav {
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 60% 40%;
 }
 
 ul {
-    padding: 0px 20px 0px 20px;
+    margin: 0px;
+    padding: 0px $ul-padding 0px $ul-padding;
+    display: flex;
+    align-items: center;
+}
+
+.menu-list {
     list-style: none;
 
     li {
@@ -16,5 +24,40 @@ ul {
     li:last-child {
         padding: 10px 0px;
     } 
+}
+
+.menu-button {
+    color: rgba(0,0,0,.44);
+    &:hover {
+        color: black;
+    }
+}
+
+.social-media {
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+        display: flex;
+    }
+}
+
+.icon {
+    width: 2em;
+    height: 2em;
+    
+    &:hover {
+        transform: scale(1.25);
+        transition-property: transform;
+        transition-duration: .5s; 
+        transition-timing-function: ease-out;
+    }
+
+  }
+
+.linkedin {
+    path {
+        fill: #046399;
+    }
 }
 
