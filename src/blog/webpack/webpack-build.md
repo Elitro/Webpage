@@ -18,6 +18,7 @@ In this guide i will be explaining both my thought process as well as some of we
     2. Html (index)
     3. Html Loader
     4. Dev Server
+    5. Markdown Loader
 3. Code Helpers
     1. ESLint
     2. Babel
@@ -242,6 +243,51 @@ And in the package.json file you can add the command:
 }
 ```
 If you run `npm run serve` webpack will host a server instance in the address `http://localhost:8080/` and if you change any file it will automatically recompile it and reflect the changes in the browser.
+
+#### Markdown Loader
+
+`npm install --save-dev markdown-loader` for markdown import
+
+```javascript
+module.exports = {
+  rules: [{
+    test: /\.md$/,
+    use: [
+      {
+          loader: "html-loader"
+      },
+      {
+          loader: "markdown-loader",
+          options: {
+              /* your options here */
+          }
+      }
+    ]
+  }]
+  },
+    ...
+```
+
+`import WebpackBlog from '../../blog/webpack/webpack-build.md';` to import the md content to a var
+
+`npm install --save-dev file-loader` for png
+
+```javascript
+module.exports = {
+  rules: [
+    {
+      test: /\.(png|jpg|gif)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {}  
+        }
+      ]
+    }
+  ]
+  ...
+}
+```
 
 ### Code Helpers
 

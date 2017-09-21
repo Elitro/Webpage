@@ -1,3 +1,4 @@
+import WebpackBlog from '../../blog/webpack/webpack-build.md';
 const ContentModule = (function() {
 
     function updateContent(option) {
@@ -6,8 +7,9 @@ const ContentModule = (function() {
         switch (option) {
             case 'webpack':
                 {
-                    // content.parentNode.replaceChild(, content);
-                    console.log(content);
+                    content.innerHTML = WebpackBlog;
+                    // console.log(String(require('../../blog/webpack/webpack-build.md')));
+                    // console.log(WebpackBlog);
                 }
                 break;
         

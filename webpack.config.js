@@ -28,6 +28,29 @@ module.exports = {
         }
       },
       {
+        test: /\.md$/,
+        use: [
+          {
+            loader: "html-loader"
+          },
+          {
+            loader: "markdown-loader",
+            options: {
+              /* your options here */
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}  
+          }
+        ]
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader"

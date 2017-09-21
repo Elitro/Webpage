@@ -15,7 +15,7 @@ const HeaderModule = (function() {
         },
         {
             label: 'Blog',
-            href: '2'
+            href: 'webpack'
         }
     ];
 
