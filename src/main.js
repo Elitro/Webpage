@@ -1,12 +1,11 @@
 'use strict';
-import HeaderModule from './components/header/header.js';
-// require('normalize.css');
 
 console.log('main.js');
 
-// debugger;
-document.getElementById('header').appendChild(HeaderModule.template); 
-/*eslint no-unused-vars: 0*/
-function menuNavigate(event) {
-    console.log(`main ${event}`);
-}
+
+import HeaderModule from './components/header/header';
+HeaderModule.init(document.getElementById('header'));
+
+import ContentModule from './components/content/content';
+ContentModule.init(document.getElementById('content'));
+

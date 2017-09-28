@@ -289,6 +289,8 @@ module.exports = {
 }
 ```
 
+`npm install highlight.js --save`
+
 ### Code Helpers
 
 TODO: Things that improve our workflow
@@ -411,3 +413,6 @@ If ESLint complains about require, just add this section in `.eslintrc.js`
 https://www.npmjs.com/package/eslint-webpack
 https://github.com/MoOx/eslint-loader
 https://webpack.github.io/docs/tutorials/getting-started/
+
+## Credit
+https://codepen.io/ruandre/pen/howFi

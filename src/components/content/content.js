@@ -1,24 +1,38 @@
+require('./content.scss');
 import WebpackBlog from '../../blog/webpack/webpack-build.md';
-const ContentModule = (function() {
 
-    function updateContent(option) {
-        const content = document.getElementById('content');
-        console.log('Change Content');
+const ContentModule = (function () {
+
+    let template = require('./content.html');
+    const templateDOM = new DOMParser().parseFromString(template, 'text/html');
+    const content = templateDOM.getElementById('main-content');    
+    
+    function init (domContent) {
+        domContent.appendChild(content);
+    }
+
+    function updateContent(option) {        
+        
         switch (option) {
             case 'webpack':
-                {
-                    content.innerHTML = WebpackBlog;
-                    // console.log(String(require('../../blog/webpack/webpack-build.md')));
-                    // console.log(WebpackBlog);
-                }
-                break;
-        
+            {
+                content.innerHTML = WebpackBlog;
+            }
+            break;
+            case 'home':
+            {
+                content.innerHTML = '';
+            }
+            break;
+
             default:
                 break;
         }
     }
 
     return {
+        init: init,
+        template: templateDOM.getElementById('main-content'),
         updateContent: updateContent
     }
 

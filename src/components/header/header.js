@@ -3,15 +3,13 @@ import ContentModule from '../content/content';
 
 const HeaderModule = (function() {
     
-    let template = require('./header.html');
-
-    // let parser = 
+    const template = require('./header.html');
     const templateDOM = new DOMParser().parseFromString(template, 'text/html');
-
+    
     const options  = [
         {
             label: 'Home',
-            href: '1'
+            href: 'home'
         },
         {
             label: 'Blog',
@@ -19,8 +17,15 @@ const HeaderModule = (function() {
         }
     ];
 
-    const navMenu = templateDOM.getElementById('nav-menu');
-    navMenu.parentNode.replaceChild(createMenu(options), navMenu);
+    function init (domHeader) {    
+        
+        const header = templateDOM.getElementById('main-nav');
+        const navMenu = templateDOM.getElementById('nav-menu');
+        navMenu.parentNode.replaceChild(createMenu(options), navMenu);
+
+        // Moves the node from the template dom to the document dom
+        domHeader.appendChild(header); 
+    }
 
     function createMenu(options) {
         const menu = templateDOM.getElementById('nav-menu');
@@ -28,7 +33,6 @@ const HeaderModule = (function() {
         options.map((elem) => {
             const li = templateDOM.createElement('li');
             li.addEventListener('click', (event) => {menuNavigate(event, elem.href), true});
-            // li.setAttribute('href', elem.href);
             li.appendChild(document.createTextNode(elem.label));
             li.setAttribute('class', 'menu-button');
             menu.appendChild(li);
@@ -39,12 +43,11 @@ const HeaderModule = (function() {
 
     function menuNavigate(event, href) {
         event.stopPropagation();
-        // console.log(`header ${href}`);
         ContentModule.updateContent(href);
     }
 
     return {
-        template: templateDOM.getElementById('main-nav')
+        init: init
     }
 
 }());

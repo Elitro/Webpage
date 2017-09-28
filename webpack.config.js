@@ -13,7 +13,10 @@ module.exports = {
   context: path.resolve(__dirname, './src'),
   devtool: 'source-map',
   entry: {
-    app: ['./main.js', './styles.scss']
+    app: ['./main.js', './styles.scss'],
+    vendor: [
+      'highlight.js/styles/default.css'
+    ]
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -35,10 +38,8 @@ module.exports = {
           },
           {
             loader: "markdown-loader",
-            options: {
-              /* your options here */
-            }
-          }
+            options: {}
+          },           
         ]
       },
       {

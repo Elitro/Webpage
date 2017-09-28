@@ -1,6 +1,7 @@
 body {
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
 }
 
 .page-body {
@@ -12,10 +13,16 @@ body {
 .page-viewport {
     width: 100%;
 }
+
+p {
+    line-height: 1.5em;
+    /* Maximum width of 65characters */
+    max-width: 65ch;
+}
     
 @media screen and (min-width: 992px) {
     .page-viewport {
         width: 992px;
-        // background-color: green;
+        background-color: green;
     }
 }
