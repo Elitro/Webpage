@@ -14,9 +14,9 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     app: ['./main.js', './styles.scss'],
-    vendor: [
-      'highlight.js/styles/default.css'
-    ]
+    // vendor: [
+    //   'highlight.js/styles/github.css'
+    // ]
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -39,7 +39,10 @@ module.exports = {
           {
             loader: "markdown-loader",
             options: {}
-          },           
+          },  
+          // {
+          //   loader: "markdown-code-highlight"
+          // }         
         ]
       },
       {

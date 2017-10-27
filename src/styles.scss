@@ -1,3 +1,4 @@
+@import "~highlight.js/styles/github.css";
 body {
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -23,6 +24,6 @@ p {
 @media screen and (min-width: 992px) {
     .page-viewport {
         width: 992px;
-        background-color: green;
+        // background-color: green;
     }
 }
